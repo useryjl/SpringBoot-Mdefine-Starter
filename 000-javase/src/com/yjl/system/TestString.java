@@ -1,9 +1,14 @@
 package com.yjl.system;
 
+import com.sun.deploy.util.StringUtils;
+import sun.security.krb5.internal.PAData;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author yjl
@@ -11,8 +16,25 @@ import java.io.IOException;
  * @create 2021-11-25
  */
 public class TestString {
+
+    //private final Map<String,Object> map=new HashMap<String,Object>;
+
     public static void main(String[] args) throws IOException {
+        //contains方法
+        Map<String,Object> map=new HashMap<>();
+        map.put("1",1);
+        map.put("2","2");
+        boolean b = map.containsKey("1");
+        boolean d = map.containsKey("2");
+        Object o = map.get("1");
+        String o2 = (String) map.get("2");
+        System.out.println("map.contains(key): "+b+","+o.getClass());
+        Integer parseInt = Integer.parseInt(o2);
+        System.out.println("map.contains(key): "+d+","+ parseInt.getClass());
+
+
         String str1="hello";
+
         if (str1.endsWith("o")&&str1.startsWith("h")){
             StringBuffer stringBuffer = new StringBuffer();
             String s = stringBuffer.append("1").append("2").toString();

@@ -7,6 +7,20 @@ package com.yjl.system;
  */
 public class StringTest {
     public static void main(String[] args) {
+        String name="12212212121";
+        String[] split = name.split(",");
+        System.out.println(split);//{"123456789"}
+        //for (String s:split){
+        //    System.out.println("s:"+s);
+        //}
+
+        for (int i=0;i<split.length;i++){
+            System.out.println(split[i]);
+            //int i1 = Integer.parseInt(split[i]);
+            //System.out.println(i1);
+        }
+
+
         //构建空字符串
         String s=new String();
         System.out.println("s:"+s);

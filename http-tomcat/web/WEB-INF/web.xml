@@ -20,4 +20,17 @@
         <servlet-name>two</servlet-name>
         <url-pattern>/twoServlet</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>com.yjl.filter.UserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/twoServlet</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.yjl.listener.ServletConList</listener-class>
+    </listener>
 </web-app>

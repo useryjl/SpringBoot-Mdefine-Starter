@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 
 /**
@@ -21,6 +22,7 @@ public class oneServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         //读取请求协议包中的请求参数 get请求从请求头中读取
         String name = request.getParameter("name");
         String age = request.getParameter("age");
@@ -40,13 +42,15 @@ public class oneServlet extends HttpServlet {
         // 带上session.JSSONID,服务器就之知道要取那个session
 
         HttpSession session = request.getSession();
-        session.setAttribute("session-key",new User());
+        session.setAttribute("username",new User("yjl"));
 
 
         //请求作用域对象 共享请求协议包时共享数据  请求转发方式，请求对象代替游览器向客户端发起请求   request
-        request.setAttribute("key2","value2");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/twoServlet");
-        requestDispatcher.forward(request,response);
+        //request.setAttribute("key2","value2");
+        //RequestDispatcher requestDispatcher = request.getRequestDispatcher("/twoServlet");
+        //requestDispatcher.forward(request,response);
+
+
 
         //存储在游览器的缓冲中
         Cookie cookie = new Cookie("key1", "value1");
