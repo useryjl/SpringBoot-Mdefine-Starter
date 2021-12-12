@@ -84,11 +84,12 @@
     <div id="box">
         <div class="title">Login</div>
         <div class="input">
-            <form action="/login/user">
+            <form action="/login/user" method="post" enctype="multipart/form-data">
                 <input type="text" id="username" name="userName" placeholder="用户名" />
                 <br>
                 <input type="password" id="password" name="userPwd"  placeholder="密码" />
                 <br>
+                <input type="file" name="photo"  >
                 <button type="submit" >登录</button>
                 </br>
                 </br>

@@ -3,16 +3,17 @@ package com.example.demo.controller;
 import com.example.demo.domain.Login;
 import com.example.demo.service.LoginService;
 import com.example.demo.util.JsonResult;
-import com.example.demo.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author yjl
@@ -37,10 +38,21 @@ public class LoginController {
         return "buju";
     }
 
-    @RequestMapping(value = "/user")
-    public ModelAndView login(@RequestParam("userName") String username, @RequestParam("userPwd") String userpwd,
-                              HttpServletRequest request) {
+    @RequestMapping(value = "/user",method = RequestMethod.POST)
+    public ModelAndView login(@RequestParam("userName") String username,
+                              @RequestParam("userPwd") String userpwd,
+                              HttpServletRequest request,
+                              MultipartFile photo) {
 
+        String originalFilename = photo.getOriginalFilename();
+        System.out.println(originalFilename);
+
+        File file = new File("F:\\test-spring-project\\0010-spring-boot-auto-test\\src\\main\\webapp\\WEB-INF\\upload\\"+originalFilename);
+        try {
+            photo.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ModelAndView mv = new ModelAndView();
         String queryUserPwd="";
