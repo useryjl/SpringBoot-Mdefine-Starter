@@ -4,7 +4,21 @@
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.UserDao">
-    <select id="selectUser"  resultType="com.example.demo.domain.User">
+<!--    配置结果的自动映射
+           数据库查出的数据  字段名:value - - > > 实体类成员变量 : value  自动封装
+-->
+<!--    <resultMap id="MapperLogin" type="com.example.demo.domain.Login">-->
+
+<!--        <collection property="Login"  ofType="com.example.demo.domain.Login">-->
+<!--            <id property="id" column="blog_id"></id>-->
+<!--            <result property="userPwd" column="user_pwd>"></result>-->
+<!--            <result column="user_pwd" property="userPwd"></result>-->
+<!--        </collection>-->
+
+<!--    </resultMap>-->
+
+
+    <select id="selectUser"  resultType="com.example.demo.domain.User" >
         select * from tb_user
     </select>
 
@@ -26,5 +40,28 @@
 
     <select id="selectById" resultType="com.example.demo.domain.User">
         SELECT * FROM tb_user WHERE id=#{id}
+    </select>
+
+<!--    条件查询-->
+    <select id="selectProd" parameterType="com.example.demo.vo.ProdInfoVo" resultType="com.example.demo.domain.Prod">
+        select * from  t_prod
+        <where>
+         <if test="(prod_name!=null) and (prod_name!='')">
+             prod_name like '%'#{prod_name}'%'
+         </if>
+
+            <if test="(prod_type!=null) and (prod_type!='')">
+              AND  prod_type=#{prod_type}
+            </if>
+
+            <if test="(low_price!=null) and (heigh_price=='')">
+                AND  low_price &gt;= #{low_price}
+            </if>
+
+            <if test="(heigh_price!=null) and (low_price=='')">
+                AND  heigh_price &lt;= #{heigh_price}
+            </if>
+
+        </where>
     </select>
 </mapper>

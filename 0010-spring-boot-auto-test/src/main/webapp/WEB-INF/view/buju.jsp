@@ -35,7 +35,7 @@
                 <a href="javascript:;">nav groups</a>
                 <dl class="layui-nav-child">
                     <dd><a href="">宿舍信息管理</a></dd>
-                    <dd><a href="">menu 22</a></dd>
+                    <dd><a href="">公告栏</a></dd>
                     <dd><a href="">menu 33</a></dd>
                 </dl>
             </li>
@@ -44,7 +44,9 @@
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:;">
                     <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    ${username}
+                    <h3 style="color: red;size: auto" >
+                        ${username}
+                    </h3>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">设置</a></dd>
@@ -64,9 +66,10 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">宿舍信息管理</a>
+                    <a class="" href="javascript:;">学生信息管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="buju">宿舍信息</a></dd>
+<%--                        请求转发到布局页面 还能取到登录用户--%>
+                        <dd><a id="request" href="forward:/buju">宿舍信息</a></dd>
                         <dd><a href="javascript:;">成绩信息</a></dd>
                     </dl>
                 </li>
@@ -82,11 +85,12 @@
         </div>
     </div>
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-
-    </div>
+<%--    <div class="layui-footer">--%>
+<%--        <!-- 底部固定区域 -->--%>
+<%--        --%>
+<%--    </div>--%>
 </div>
+
 
 <script>
     //JS

@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Prod;
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
 import com.example.demo.util.JsonResult;
+import com.example.demo.vo.ProdInfoVo;
 import com.yjl.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,7 @@ import java.util.List;
  * @Description
  * @create 2021-12-10
  */
-@CrossOrigin
+//@CrossOrigin
 @Controller
 public class UserController {
 
@@ -61,6 +63,8 @@ public class UserController {
     @RequestMapping("/selectById")
     public JsonResult selectById(int id){
         User user = userService.selectById(id);
+        //
+        new JsonResult("返回狀態碼200,layui数据表格要做相应的处理  默认 0",200);
         JsonResult result = new JsonResult("查询成功", 200, user);
         return result;
     }
@@ -108,6 +112,30 @@ public class UserController {
             result = new JsonResult("新增成功", 200);
         }else {
             result = new JsonResult("新增失败",500);
+        }
+        return result;
+    }
+
+
+
+
+    //ProdController
+    @ResponseBody
+    @RequestMapping("/prodInfoVo")
+    public JsonResult prodSelect(ProdInfoVo prodInfoVo,HttpServletRequest request){
+        JsonResult result=null;
+        //前端封装的查询条件  prodInfoVo  name与属性相同则会进行映射
+
+        List<Prod> prods = userService.selectProd(prodInfoVo);
+        if (prods.size()>0){
+            result = new JsonResult("查询成功", 200);
+
+            request.setAttribute("prods",prods);
+            for (Prod prod:prods){
+                System.out.println(prod);
+            }
+        }else {
+            result = new JsonResult("查询失败",500);
         }
         return result;
     }

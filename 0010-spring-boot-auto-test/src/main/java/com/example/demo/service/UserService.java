@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Prod;
 import com.example.demo.domain.User;
+import com.example.demo.vo.ProdInfoVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,4 +18,6 @@ public interface UserService {
     int delete(int id);
     int insert(User user);
     User selectById(int id);
+
+    List<Prod> selectProd(ProdInfoVo prodInfoVo);
 }

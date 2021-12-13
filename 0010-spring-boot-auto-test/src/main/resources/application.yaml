@@ -21,11 +21,12 @@ mybatis:
   mapper-locations: mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-logging:
-  level:
-    resources:
-      mapper: debug
 
+
+
+logging:
+  file:
+    path: ./logs
 
 
 

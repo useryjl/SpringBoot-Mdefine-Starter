@@ -1,8 +1,8 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.User;
+import com.example.demo.vo.ProdInfoVo;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -24,4 +24,7 @@ public interface UserDao {
     int delete(int id);
 
     int insert(User user);
+
+
+    List selectProd(ProdInfoVo prodInfoVo);
 }
