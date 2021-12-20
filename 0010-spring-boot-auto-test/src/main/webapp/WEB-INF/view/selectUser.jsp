@@ -26,14 +26,15 @@
 <%--<table  id="Test" lay-filter="Test"></table>--%>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a  class="layui-btn layui-btn-xs" lay-event="new">新增</a>
+    <a  class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a  class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 
 
 
-<%--新增--%>
+<%--修改--%>
 <div id="IDIDID" style="display: none;">
     <form class="layui-form" >
         <div class="layui-form-item" style="width: 300px">
@@ -104,6 +105,82 @@
     </form>
 </div>
 
+
+
+<%--新增 时查询数据库id最大值回显到输入框--%>
+
+<div id="insert" style="display: none;">
+    <form class="layui-form" >
+        <div class="layui-form-item" style="width: 300px">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-block">
+                <input type="text" id="insertidd" name="insertid"  required  lay-verify="required" placeholder="请输入ID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="width: 300px">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="insertuserName" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item"  style="width: 300px">
+            <label class="layui-form-label">用户角色</label>
+            <div class="layui-input-block">
+                <select name="insertuserType" lay-verify="required">
+                    <option value="">请选择用户角色</option>
+                    <option value="0">舍长</option>
+                    <option value="1">班长</option>
+                    <option value="2">学习委员</option>
+                </select>
+            </div>
+        </div>
+
+
+
+
+        <div class="layui-form-item"  style="width: 300px">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="insertuserPwd" required lay-verify="required" placeholder="请输入密码"  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="width: 300px">
+            <label class="layui-form-label">宿舍号</label>
+            <div class="layui-input-block">
+                <input type="text" name="insertroomId" required  lay-verify="required" placeholder="请输入宿舍号" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="insertgender" value="1" title="男" checked>
+                <input type="radio" name="insertgender" value="0" title="女" >
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text" style="width: 300px">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="email" name="insertemail" required  lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="submitInsert">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+
+
+
+    </form>
+</div>
 
 
 </body>

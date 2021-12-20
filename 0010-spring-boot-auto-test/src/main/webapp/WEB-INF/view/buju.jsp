@@ -44,13 +44,11 @@
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:;">
                     <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    <h3 style="color: red;size: auto" >
-                        ${username}
-                    </h3>
+                       ${username}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">设置</a></dd>
-                    <dd><a href="">退出系统</a></dd>
+                    <dd><a href="downSystem">退出系统</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
@@ -70,7 +68,7 @@
                     <dl class="layui-nav-child">
 <%--                        请求转发到布局页面 还能取到登录用户--%>
                         <dd><a id="request" href="forward:/buju">宿舍信息</a></dd>
-                        <dd><a href="javascript:;">成绩信息</a></dd>
+                        <dd><a href="prod">商品信息</a></dd>
                     </dl>
                 </li>
             </ul>

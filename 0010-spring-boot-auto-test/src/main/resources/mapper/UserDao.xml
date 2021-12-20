@@ -4,22 +4,38 @@
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.UserDao">
-<!--    配置结果的自动映射
-           数据库查出的数据  字段名:value - - > > 实体类成员变量 : value  自动封装
+
+
+<!--
+    将一些常用的字段集中起来使用
 -->
-<!--    <resultMap id="MapperLogin" type="com.example.demo.domain.Login">-->
+    <sql id="CommonsID" >
+        userPwd,userName,gender,email,roomId,userType
+    </sql>
 
-<!--        <collection property="Login"  ofType="com.example.demo.domain.Login">-->
-<!--            <id property="id" column="blog_id"></id>-->
-<!--            <result property="userPwd" column="user_pwd>"></result>-->
-<!--            <result column="user_pwd" property="userPwd"></result>-->
-<!--        </collection>-->
+<!--
+        "${(pageIndex - 1) * pageSize} , #{pageSize}") 字符串拼接
+-->
 
-<!--    </resultMap>-->
+<!--
+字段=值,
+字段=值,
+字段=值,
+字段=值,
+字段=值,
+-->
+    <select id="selectUserResultMap" resultType="map">
+        SELECT * FROM tb_user
+    </select>
+
+
+    <select id="selectUserpage"  parameterType="com.example.demo.domain.Page" resultType="com.example.demo.domain.User" >
+              select * from tb_user order by id desc limit ${(page-1)*limit},#{limit}
+    </select>
 
 
     <select id="selectUser"  resultType="com.example.demo.domain.User" >
-        select * from tb_user
+        select * from tb_user order by id desc
     </select>
 
     <update id="Update" parameterType="com.example.demo.domain.User">
@@ -30,38 +46,62 @@
         delete from tb_user where id=#{id}
     </delete>
 
-    <insert id="insert">
-        insert  into tb_user
-        (id,userPwd,userName,gender,email,roomId,userType)
-        values
-        (#{id},#{userPwd},#{userName},#{gender},#{email},#{roomId},#{userType})
+
+
+
+
+<!--    新增时查询最大id并加1 作为id-->
+    <select id="selectMaxId" resultType="integer">
+        select  max(id)+1  from tb_user;
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.domain.User">
+        insert  into tb_user(id,user_pwd,user_name,gender,email,room_id,user_type)values(#{javaBeanUser.id},#{javaBeanUser.userPwd},#{javaBeanUser.userName},#{javaBeanUser.gender},#{javaBeanUser.email},#{javaBeanUser.roomId},#{javaBeanUser.userType})
     </insert>
 
 
     <select id="selectById" resultType="com.example.demo.domain.User">
-        SELECT * FROM tb_user WHERE id=#{id}
+        SELECT * FROM tb_user WHERE id=#{id23}
     </select>
 
-<!--    条件查询-->
-    <select id="selectProd" parameterType="com.example.demo.vo.ProdInfoVo" resultType="com.example.demo.domain.Prod">
+<!--  ProdInfoVo中封装了我们的  条件查询-->
+<!--
         select * from  t_prod
-        <where>
-         <if test="(prod_name!=null) and (prod_name!='')">
-             prod_name like '%'#{prod_name}'%'
-         </if>
+        where
+        prod_name like '%%x6%'
+        AND  prod_type='0'
+        AND  price >= 16
+        AND  price <=999
+-->
+    <select id="selectProd" parameterType="com.example.demo.vo.ProdInfoVo" resultType="com.example.demo.domain.Prod">
+             select * from  t_prod
+            <where>
+             <if test="prod_name!=null and prod_name!=''">
+                 AND prod_name like "%"#{prod_name}"%"
+             </if>
 
-            <if test="(prod_type!=null) and (prod_type!='')">
+            <if test="prod_type!=null and prod_type!=''">
               AND  prod_type=#{prod_type}
             </if>
 
-            <if test="(low_price!=null) and (heigh_price=='')">
-                AND  low_price &gt;= #{low_price}
+            <if test="low_price!=null and heigh_price==''">
+                AND  price &gt;=#{low_price}
             </if>
 
-            <if test="(heigh_price!=null) and (low_price=='')">
-                AND  heigh_price &lt;= #{heigh_price}
+            <if test="heigh_price!=null and low_price==''">
+                AND  price &lt;=#{heigh_price}
             </if>
-
+<!--                <if test="(heigh_price!=null) and (low_price!='')">-->
+<!--                    AND  price &lt;= #{heigh_price}-->
+<!--                </if>-->
         </where>
+    </select>
+
+
+    <select id="test">
+        select * from tb_user where id in
+        <foreach collection="id" separator="," item="var" open="(" close=")">
+        #{var}
+        </foreach>
     </select>
 </mapper>

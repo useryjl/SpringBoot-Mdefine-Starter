@@ -26,10 +26,21 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @RequestMapping(value = "/prod")
+    public String prod(){
+        return "prod";
+    }
 
+    //登录页面
     @RequestMapping("/startlogin")
     public String login() {
         return "login";
+    }
+
+    //推出系统
+    @RequestMapping("/downSystem")
+    public String downSystem(){
+        return "downSystem";
     }
 
     //首页
@@ -63,7 +74,7 @@ public class LoginController {
             }
             if (query!=null&&userpwd.equals(queryUserPwd)){
                 System.out.println("登录成功！");
-                request.setAttribute("username", query.getUserName());
+                request.getSession().setAttribute("username", query.getUserName());
                 JsonResult result = new JsonResult("登录成功", 200, query.getUserName());
                 System.out.println(result);
                 request.setAttribute("msg", "");

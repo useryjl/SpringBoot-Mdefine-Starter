@@ -9,7 +9,8 @@ import lombok.Data;
  */
 @Data
 public class Prod {
+    private Integer id;
     private Integer price;
-    private String name;
-    private Integer count;
+    private Integer prodType;
+    private String prodName;
 }

@@ -1,28 +1,37 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Page;
 import com.example.demo.domain.Prod;
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
 import com.example.demo.util.JsonResult;
 import com.example.demo.vo.ProdInfoVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yjl.service.HelloService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yjl
  * @Description
- * @create 2021-12-10
+ * @create 2021-12-16
  */
-//@CrossOrigin
 @Controller
 public class UserController {
+
+     Logger logger= LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
@@ -32,6 +41,8 @@ public class UserController {
     public String index(){
         return "buju";
     }
+
+
 
 
     //首页
@@ -45,6 +56,36 @@ public class UserController {
         return "insert";
     }
 
+
+
+
+
+    @ResponseBody
+    @RequestMapping("/selectUserResultMap")
+    public JsonResult selectUserResultMap(){
+        List<Map<String, User>> mapList = userService.selectUserResultMap();
+        //list中存放查询到的数据 其中一行数据作为一个map
+        System.out.println(mapList);
+        for(int i=0;i<mapList.size();i++){
+            User user = mapList.get(i).get("room_id");
+            System.out.println("user:"+user);
+
+
+        }
+        //for (Map<String,User> map:mapList){
+        //    System.out.println(map);
+        //}
+        JsonResult jsonResult = new JsonResult("查询成功", 200, mapList.size(), mapList);
+        //System.out.println("userList:"+userList);
+        return jsonResult;
+    }
+
+
+
+
+
+
+
     //用户查询接口
     @ResponseBody
     @RequestMapping("/select")
@@ -55,6 +96,28 @@ public class UserController {
         JsonResult jsonResult = new JsonResult("查询成功", 200, userList.size(), userList);
         //System.out.println("userList:"+userList);
         return jsonResult;
+    }
+
+
+    //用户查询接口 分页
+    @ResponseBody
+    @RequestMapping("/selectPage")
+    public JsonResult userSelectPage(Page page){
+        //
+        System.out.println(page.getPage()+","+page.getPage());
+        PageHelper.startPage(page.getPage(),page.getLimit());  //开始分页
+
+        List<User> userList = userService.selectpage(page);
+
+        //PageInfo 我们分页以后的数据被封装到pageinf中
+        PageInfo<User> pageInfo=new PageInfo<>(userList);  //将查询的数据放入pageInfo中构建分页信息
+
+        System.out.println(pageInfo);
+
+        JsonResult resultPage = new JsonResult("分页查询成功", 200, pageInfo.getPageSize(),pageInfo.getList());
+
+        //返回给前端我满们分页的数据
+        return resultPage;
     }
 
 
@@ -101,6 +164,27 @@ public class UserController {
     }
 
 
+
+
+    //selectMaxId
+    @ResponseBody
+    @RequestMapping("/selectMaxId")
+    public JsonResult selectMaxId(){
+        JsonResult jsonResult=null;
+        Integer integer = userService.selectMaxId();
+        //integer是id最大值加1
+        if (integer!=null&&integer>0){
+            logger.info("integer:"+integer);
+             jsonResult = new JsonResult("查询最大值成功", 200, integer);
+             //integer在json中返回
+        }
+
+        return jsonResult;
+    }
+
+
+
+
     //用户新增接口
     @ResponseBody
     @RequestMapping("/insert")
@@ -118,22 +202,47 @@ public class UserController {
 
 
 
+    @ResponseBody
+    @RequestMapping("/foreach")
+    public JsonResult foreach(){
+        JsonResult result=null;
+        List<Integer> id=new ArrayList<>();
+        id.add(20239223);
+        id.add(20239222);
+        id.add(20239221);
+
+        User test = userService.test(id);
+        System.out.println(test);
+        if (test!=null){
+            result = new JsonResult("foreach查询成功", 200);
+        }else {
+            result = new JsonResult("foreach查询失败",500);
+        }
+        return result;
+    }
+
+
+
+
+
+
 
     //ProdController
     @ResponseBody
     @RequestMapping("/prodInfoVo")
-    public JsonResult prodSelect(ProdInfoVo prodInfoVo,HttpServletRequest request){
+    //ProdInfoVo 封装我们条件查询的数据 传到sql中
+    public JsonResult prodSelect(ProdInfoVo prodInfoVo){
+        ModelAndView modelAndView = new ModelAndView();
+        //实体类接收 sql中需要#{属性名}
         JsonResult result=null;
         //前端封装的查询条件  prodInfoVo  name与属性相同则会进行映射
 
         List<Prod> prods = userService.selectProd(prodInfoVo);
         if (prods.size()>0){
-            result = new JsonResult("查询成功", 200);
+            //
+            modelAndView.addObject("prods",prods);
+            result = new JsonResult("查询成功", 200,prods.size(),prods);
 
-            request.setAttribute("prods",prods);
-            for (Prod prod:prods){
-                System.out.println(prod);
-            }
         }else {
             result = new JsonResult("查询失败",500);
         }

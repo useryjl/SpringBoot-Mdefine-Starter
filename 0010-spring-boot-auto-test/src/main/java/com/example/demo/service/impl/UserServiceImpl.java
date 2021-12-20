@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserDao;
+import com.example.demo.domain.Page;
 import com.example.demo.domain.Prod;
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yjl
@@ -23,6 +25,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    public User test(List<Integer> id) {
+        return userDao.test(id);
+    }
+
+    @Override
+    public List<Map<String,User>>  selectUserResultMap() {
+        return userDao.selectUserResultMap();
+    }
+
+    @Override
+    public List<User> selectpage(Page page) {
+        return userDao.selectUserpage(page);
+    }
+
+    @Override
     public List<User> select() {
         return userDao.selectUser();
     }
@@ -35,6 +52,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int delete(int id) {
         return userDao.delete(id);
+    }
+
+    @Override
+    public Integer selectMaxId() {
+        return userDao.selectMaxId();
     }
 
     @Override

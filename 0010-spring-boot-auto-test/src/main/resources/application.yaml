@@ -21,12 +21,6 @@ mybatis:
   mapper-locations: mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-
-
-
-logging:
-  file:
-    path: ./logs
-
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
