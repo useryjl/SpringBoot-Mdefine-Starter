@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.Page;
+import com.example.demo.domain.Prod;
 import com.example.demo.domain.User;
 import com.example.demo.vo.ProdInfoVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -42,4 +43,7 @@ public interface UserDao {
 
 
     List selectProd(ProdInfoVo prodInfoVo);
+
+
+    List<Prod> selectProdpage(Page page);
 }

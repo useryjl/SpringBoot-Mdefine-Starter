@@ -74,4 +74,9 @@ public class UserServiceImpl implements UserService {
         return userDao.selectProd(prodInfoVo);
     }
 
+    @Override
+    public List<Prod> selectProd(Page page) {
+        return userDao.selectProdpage(page);
+    }
+
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @create 2021-12-20
  */
 @Configuration
-public class Intercept implements HandlerInterceptor {
+public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -25,6 +25,16 @@ public class Intercept implements HandlerInterceptor {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("拦截器postHandle开始执行");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println("拦截器afterCompletion开始执行");
     }
 
 }

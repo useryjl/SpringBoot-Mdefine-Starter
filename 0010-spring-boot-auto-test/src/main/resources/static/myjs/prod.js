@@ -10,7 +10,7 @@ layui.use(['element','layer','table','form','laypage','jquery'], function() { //
         text: {none: '暂无相关数据'}
         , elem: '#prods'
         , method: "get"
-        , url: "http://localhost:8080/prodInfoVo"
+        , url: "http://localhost:8080/prodInfoVoPage"  //分页
         , title: '用户数据表'
         , even: true
         , cols: [[ //表头

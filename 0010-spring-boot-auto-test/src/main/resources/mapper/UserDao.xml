@@ -34,6 +34,10 @@
     </select>
 
 
+    <select id="selectProdpage" resultType="com.example.demo.domain.Prod">
+        select  * from  t_prod order by id desc limit ${(page-1)*limit},#{limit}
+   </select>
+
     <select id="selectUser"  resultType="com.example.demo.domain.User" >
         select * from tb_user order by id desc
     </select>
@@ -74,26 +78,27 @@
         AND  price <=999
 -->
     <select id="selectProd" parameterType="com.example.demo.vo.ProdInfoVo" resultType="com.example.demo.domain.Prod">
-             select * from  t_prod
+            select * from  t_prod
             <where>
-             <if test="prod_name!=null and prod_name!=''">
-                 AND prod_name like "%"#{prod_name}"%"
-             </if>
+                 <if test="prod_name!=null and prod_name!=''">
+                     AND prod_name like "%"#{prod_name}"%"
+                 </if>
 
-            <if test="prod_type!=null and prod_type!=''">
-              AND  prod_type=#{prod_type}
-            </if>
+                <if test="prod_type!=null and prod_type!=''">
+                  AND  prod_type=#{prod_type}
+                </if>
 
-            <if test="low_price!=null and heigh_price==''">
-                AND  price &gt;=#{low_price}
-            </if>
+                <if test="low_price!=null and heigh_price==''">
+                    AND  price &gt;=#{low_price}
+                </if>
 
-            <if test="heigh_price!=null and low_price==''">
-                AND  price &lt;=#{heigh_price}
-            </if>
-<!--                <if test="(heigh_price!=null) and (low_price!='')">-->
-<!--                    AND  price &lt;= #{heigh_price}-->
-<!--                </if>-->
+                <if test="heigh_price!=null and low_price==''">
+                    AND  price &lt;=#{heigh_price}
+                </if>
+
+                <if test="heigh_price!=null and low_price!=null">
+                    AND  price between #{low_price} and #{heigh_price}
+                </if>
         </where>
     </select>
 

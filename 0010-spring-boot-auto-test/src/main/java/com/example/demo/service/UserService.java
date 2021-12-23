@@ -32,4 +32,7 @@ public interface UserService {
     User selectById(int id);
 
     List<Prod> selectProd(ProdInfoVo prodInfoVo);
+
+
+    List<Prod> selectProd(Page page);
 }

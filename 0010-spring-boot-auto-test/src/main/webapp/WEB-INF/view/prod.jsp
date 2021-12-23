@@ -36,14 +36,14 @@
         <div class="layui-form-item"  style="width: 300px">
             <label class="layui-form-label">最低价格</label>
             <div class="layui-input-block">
-                <input type="text" name="low_price" required lay-verify="required" placeholder="请输入最低价格"  autocomplete="off" class="layui-input">
+                <input type="text" name="low_price"  placeholder="请输入最低价格"  autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item" style="width: 300px">
             <label class="layui-form-label">最高价格</label>
             <div class="layui-input-block">
-                <input type="text" name="heigh_price" required  lay-verify="required" placeholder="请输入最高价格" class="layui-input">
+                <input type="text" name="heigh_price" placeholder="请输入最高价格" class="layui-input">
             </div>
         </div>
 

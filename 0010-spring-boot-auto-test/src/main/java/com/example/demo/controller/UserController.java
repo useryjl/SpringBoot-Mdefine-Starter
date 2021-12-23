@@ -94,6 +94,7 @@ public class UserController {
         //查出list集合
         List<User> userList = userService.select();
         JsonResult jsonResult = new JsonResult("查询成功", 200, userList.size(), userList);
+        System.out.println("jsonResult:"+jsonResult);
         //System.out.println("userList:"+userList);
         return jsonResult;
     }
@@ -242,6 +243,29 @@ public class UserController {
             //
             modelAndView.addObject("prods",prods);
             result = new JsonResult("查询成功", 200,prods.size(),prods);
+
+        }else {
+            result = new JsonResult("查询失败",500);
+        }
+        return result;
+    }
+
+
+
+
+    @ResponseBody
+    @RequestMapping("/prodInfoVoPage")
+    public JsonResult prodSelectPage(Page page){  //page limit
+        ModelAndView modelAndView = new ModelAndView();
+        PageHelper pageHelper = new PageHelper();
+        pageHelper.startPage(page.getPage(),page.getLimit());  //将分页数据放入pagehelper中
+        JsonResult result=null;
+        List<Prod> prods = userService.selectProd(page);
+        PageInfo<Prod> pageInfo=new PageInfo<>(prods);  //分页信息放入PageInfo中
+        if (prods.size()>0){
+            modelAndView.addObject("prods",prods);
+            System.out.println("pageInfo:"+pageInfo);
+            result = new JsonResult("查询成功", 200,pageInfo.getSize(),pageInfo.getList());
 
         }else {
             result = new JsonResult("查询失败",500);
